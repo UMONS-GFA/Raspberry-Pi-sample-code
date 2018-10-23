@@ -4,6 +4,10 @@
 It is highly recommended to install Raspbian Jessie releases on 18th March 2016.
 http://downloads.raspberrypi.org/raspbian/images/raspbian-2016-03-18/2016-03-18-raspbian-jessie.zip
 
+### Build Python package for PyPi
+    python3 setup.py sdist bdist_wheel
+    
+
 ### Expand file system
     
 Expand file system by following this:
@@ -132,7 +136,19 @@ If you need to get sensor data continuously, input `POLL,3` to get data with tim
 
 For more details on the commands & responses, please refer the Datasheets of Atlas Sensors.
 
+# SMBus MODE #
+SMBus mode uses the pure-python smbus2 library to talk to one or more Atlas Scientific sensors. Currently only testing using Python3.
 
+### Setup ###
+    If using the Raspberry Pi, enable the I2C bus, similarly to the I2C section above.
+    Install the smbus2 module:
+        pip3 install smbus2
+
+### Test Sensor ###
+Run the sample code like below:
+
+    cd ~/Raspberry-Pi-sample-code
+    sudo python smbus.py
    
 # UART MODE #
 
