@@ -39,11 +39,17 @@ def main():
     while True:
         for i in range(len(devices)):
             i2c_bus.set_i2c_address(devices[i])
-            info = str.split(i2c_bus.query("I"), ",")[1]
-            sensor_id = str.lower(info) + SENSOR_NUMBER
-            result = str(i2c_bus.query("R"))
-            timestamp = str(int(time.time()))
-            data_logger.logger.info("{0},{1},{2}".format(sensor_id, result, timestamp))
+            try:
+                info = str.split(i2c_bus.query("I"), ",")[1]
+                sensor_id = str.lower(info) + SENSOR_NUMBER
+
+                result = str(i2c_bus.query("R"))
+                timestamp = str(int(time.time()))
+                data_logger.logger.info("{0},{1},{2}".format(sensor_id, result, timestamp))
+
+            except UnicodeDecodeError as e:
+                msg_logger.logger.info("Problem with sensors reading {}".format(e))
+
         time.sleep(MEASURE_INTERVAL)
 
 
